@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}<title>資料表新增(二)</title>{% endblock %}
+{% block content %}
+<!-- {% if request.session.username %} -->
+  	<h2>student 資料表新增(二)</h2>
+	<div >
+		<form action="." method="POST" name="form1">
+			{% csrf_token %}
+			<div style="display: flex;justify-content: center;">
+				<table border="1" cellspacing="1" cellpadding="4">
+					<tr><th >姓名</th><td >{{postform.cName}}</td></tr>
+					<tr>
+						<th>性別</th>
+						<td >
+						<input name="cSex" type="radio" id="cSex1" value="M" checked="checked" />男生
+						<input name="cSex" type="radio" id="cSex2" value="F" />女生
+						</td>
+					</tr>
+					<tr><th>生日</th><td>{{postform.cBirthday}}</td></tr>
+					<tr><th>郵件帳號</th><td>{{postform.cEmail}}</td></tr>
+					<tr><th>電話</th><td >{{postform.cPhone}}</td></tr>
+					<tr><th>地址</th><td >{{postform.cAddr}}</td></tr>
+					<tr style="text-align: center;">
+						<th align="center" >
+							<input type="submit" name="button" id="button" value="送出">
+							<input type="reset" name="button2" id="button2" value="重設">
+						</th>
+					</tr>
+				</table>
+			</div>
+			<span style="color:red">{{message}}</span>
+		</form>
+	</div>
+<!-- {% else %}
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script>
+		Swal.fire({
+			title: '權限錯誤',
+			text: "抱歉，您似乎沒有權限或是尚未登入",
+			icon: 'warning',
+			showCancelButton: false,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: '前往登入',
+			allowOutsideClick: false
+			}).then((result) => {
+			if (result.isConfirmed) {
+				window.location = '/login/'
+			}
+		})
+	</script>
+{% endif%} -->
+{% endblock %}

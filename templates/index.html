@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>首頁</title>
+
+<script>
+	$( document ).ready(function() {
+		username = document.getElementById('name').textContent;
+		// console.log(username);
+		$.ajax({
+			url: '/show/',
+			method: 'GET',
+			dataType: 'json',
+			data: {
+			},
+			async: true,　
+		
+			success: res =>{
+				document.getElementById('math').innerText = res
+			},
+			error: err =>{
+				console.log(err)
+			},
+		});
+   });
+</script>
+{% endblock %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+	<div style="text-align: left;">
+		更新次數: <span id="math"></span>
+	</div>
+{% endif %}
+
+<!-- <span>{{ data }}</span> -->
+<div>
+	<h2 >顯示 student 資料表所有資料&nbsp;&nbsp;
+		<!-- <a href="/post1/">新增一</a>&nbsp;&nbsp; -->
+		
+		<a href="/post2/" style="color: white;" >
+			<button type="button" class="btn btn-primary">新增</button></button>
+		</a>
+		
+	</h2>
+</div>
+<form action="." method="POST" name="form1" style="padding: 0 50px;">
+	<!-- 有form 表單需要使用 -->
+	{% csrf_token %} 
+
+	<table class="table table-hover">
+		<th>編號</th><th>姓名</th><th>性別</th><th>生日</th>
+		<th>郵件帳號</th><th>電話</th><th>地址</th><th>操作</th>
+		{% for student in students %}
+			<tr>
+				<td>{{ student.id }} </td>
+				<td>{{ student.cName }} </td>
+				<td>{{ student.cSex}} </td>
+				<td>{{ student.cBirthday }} </td>
+				<td>{{ student.cEmail }} </td>
+				<td>{{ student.cPhone}} </td>
+				<td>{{ student.cAddr }} </td>
+				<td>
+					<!-- <a href="/edit/{{student.id}}/" title="編輯">編輯</a>	 -->
+					<a href="/edit2/{{student.id}}/load" title="編輯" style="color: white;" >
+						<button type="button" class="btn btn-success">編輯</button>
+					</a>
+					<a href="/delete/{{student.id}}/" title="刪除" style="color: white;" >
+						<button type="button" class="btn btn-danger">刪除</button>
+					</a>
+				</td>
+			</tr>
+		{% endfor %}
+	</table>
+</form>
+{% endblock %}	

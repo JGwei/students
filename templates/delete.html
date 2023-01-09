@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}<title>資料表刪除</title>{% endblock %}
+{% block content %}
+{% if request.session.username %}
+	<h1">student 資料表刪除</h1>
+	<form action="." method="POST" name="form1">
+		{% csrf_token %}
+		<div>請輸入編號：<input type="text" name="cId" />
+		</div>
+		<div>
+		<input type="submit" name="button" id="button" value="確定刪除" />
+		</div> 
+		<span style="color:red">{{message}}</span>
+	</form>
+{% else %}
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script>
+		Swal.fire({
+			title: '權限錯誤',
+			text: "抱歉，您似乎沒有權限或是尚未登入",
+			icon: 'warning',
+			showCancelButton: false,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: '前往登入',
+			allowOutsideClick: false
+			}).then((result) => {
+			if (result.isConfirmed) {
+				window.location = '/login/'
+			}
+		})
+	</script>
+{% endif%}
+{% endblock %}
